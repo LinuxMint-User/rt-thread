@@ -60,6 +60,9 @@ void w25qxx_enter_qspi_mode(struct rt_qspi_device *device)
     }
 }
 
+/* Adapter function to bridge the signature mismatch between driver layer
+ * expectation (void (*)()) and framework requirement (void (*)(struct rt_qspi_device *)).
+ */
 void w25qxx_enter_qspi_mode_adapter(void)
 {
     struct rt_qspi_device *device = (struct rt_qspi_device *)rt_device_find("qspi10");
