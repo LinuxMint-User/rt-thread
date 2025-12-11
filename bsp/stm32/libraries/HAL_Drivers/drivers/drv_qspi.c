@@ -326,6 +326,9 @@ rt_err_t rt_hw_qspi_device_attach(const char *bus_name, const char *device_name,
         goto __exit;
     }
 
+    /* Safe type conversion to resolve interface contract mismatch.
+     * Caller ensures the function pointer is compatible via adapter pattern.
+     */
     if (enter_qspi_mode != RT_NULL)
     {
         qspi_device->enter_qspi_mode = (void (*)(struct rt_qspi_device *))enter_qspi_mode;
@@ -335,9 +338,6 @@ rt_err_t rt_hw_qspi_device_attach(const char *bus_name, const char *device_name,
         qspi_device->enter_qspi_mode = RT_NULL;
     }
 
-    /* Safe type conversion to resolve interface contract mismatch.
-     * Caller ensures the function pointer is compatible via adapter pattern.
-     */
     if (exit_qspi_mode != RT_NULL)
     {
         qspi_device->exit_qspi_mode = (void (*)(struct rt_qspi_device *))exit_qspi_mode;
